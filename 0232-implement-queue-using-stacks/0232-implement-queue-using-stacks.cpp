@@ -1,35 +1,30 @@
 class MyQueue {
-private:
+ public:
+  void push(int x) {
+    input.push(x);
+  }
 
-    std::queue<int> q;
-public:
-    MyQueue() {
-        
-    }
-    
-    void push(int x) {
-         q.push(x);
-    }
-    
-    int pop() {
-        if (!q.empty()) {
-            int frontElement = q.front();
-            q.pop();
-            return frontElement;
-        }
-        return -1; 
-    }
-    
-    int peek() {
-        if (!q.empty()) {
-            return q.front();
-        }
-        return -1;
-    }
-    
-    bool empty() {
-         return q.empty();
-    }
+  int pop() {
+    peek();
+    const int val = output.top();
+    output.pop();
+    return val;
+  }
+
+  int peek() {
+    if (output.empty())
+      while (!input.empty())
+        output.push(input.top()), input.pop();
+    return output.top();
+  }
+
+  bool empty() {
+    return input.empty() && output.empty();
+  }
+
+ private:
+  stack<int> input;
+  stack<int> output;
 };
 
 /**
