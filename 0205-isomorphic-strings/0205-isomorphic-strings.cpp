@@ -1,28 +1,16 @@
 class Solution {
-public:
-    bool isIsomorphic(string s, string t) {
-        if (s.length() != t.length()) {
-            return false;
-        }
+ public:
+  bool isIsomorphic(string s, string t) {
+    vector<int> charToIndex_s(128);
+    vector<int> charToIndex_t(128);
 
-        std::unordered_map<char, char> sToT;
-        std::unordered_map<char, char> tToS;
-
-        for (int i = 0; i < s.length(); ++i) {
-            char charS = s[i];
-            char charT = t[i];
-
-            if (sToT.find(charS) != sToT.end() && sToT[charS] != charT) {
-                return false;
-            }
-            sToT[charS] = charT;
-
-            if (tToS.find(charT) != tToS.end() && tToS[charT] != charS) {
-                return false;
-            }
-            tToS[charT] = charS;
-        }
-
-        return true;
+    for (int i = 0; i < s.length(); ++i) {
+      if (charToIndex_s[s[i]] != charToIndex_t[t[i]])
+        return false;
+      charToIndex_s[s[i]] = i + 1;
+      charToIndex_t[t[i]] = i + 1;
     }
+
+    return true;
+  }
 };
